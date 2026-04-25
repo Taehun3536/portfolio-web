@@ -1,22 +1,24 @@
 import { test, expect } from '@playwright/test';
+import { PortfolioPage } from './pages/PortfolioPage';
 
-test('메인 페이지 헤더 문구 확인', async ({ page }) => {
-  await page.goto('http://localhost:3000');
-  
-  // 권태훈 이름이 포함된 h1 태그 확인
-  const title = page.locator('h1');
-  await expect(title).toContainText('권태훈');
-  await expect(title).toContainText('구현을 넘어 검증까지');
-});
+test.describe('포트폴리오 E2E 테스트 (POM Pattern)', () => {
+  let portfolioPage;
 
-test('프로젝트 카드 노출 확인', async ({ page }) => {
-  await page.goto('http://localhost:3000');
-  
-  // Featured Projects 섹션 확인
-  const projectsSection = page.locator('#projects');
-  await expect(projectsSection).toBeVisible();
-  
-  // 최소 1개 이상의 프로젝트 카드가 로드되는지 확인
-  const projectCards = page.locator('.project-card');
-  await expect(projectCards.first()).toBeVisible();
+  test.beforeEach(async ({ page }) => {
+    portfolioPage = new PortfolioPage(page);
+    await portfolioPage.goto();
+  });
+
+  test('메인 페이지 헤더 문구 검증', async () => {
+    const text = await portfolioPage.getHeroTitleText();
+    expect(text).toContain('권태훈');
+    expect(text).toContain('구현을 넘어 검증까지');
+  });
+
+  test('지정된 3개 프로젝트 카드 렌더링 검증', async () => {
+    await portfolioPage.expectProjectVisible();
+    const count = await portfolioPage.getProjectCount();
+    // 우리가 지정한 3개의 프로젝트가 모두 나오는지 확인
+    expect(count).toBeGreaterThanOrEqual(3);
+  });
 });
