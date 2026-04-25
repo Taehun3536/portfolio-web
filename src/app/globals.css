@@ -1,0 +1,109 @@
+/* src/app/globals.css */
+:root {
+  --primary: #0070f3;
+  --bg: #ffffff;
+  --fg: #111111;
+  --card-bg: #f9f9f9;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+
+a { text-decoration: none; color: inherit; }
+
+/* Layout */
+.navbar { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 10%; background: var(--nav-bg); backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.nav-links a { margin-left: 2rem; font-weight: 500; transition: color 0.3s; }
+.nav-links a:hover { color: var(--primary); }
+
+.footer { padding: 4rem 10%; text-align: center; border-top: 1px solid #eee; background: #fafafa; }
+
+/* Sections */
+.hero { height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at 50% 50%, #fff, #f4f7f6); padding: 0 10%; }
+.hero-content h1 { font-size: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+.hero-content p { font-size: 1.25rem; color: #666; margin-bottom: 2.5rem; max-width: 600px; margin-inline: auto; }
+
+.btn-primary { background: var(--primary); color: white; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; display: inline-block; transition: 0.3s; }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,112,243,0.3); }
+
+/* Projects Section Styles */
+.projects { padding: 8rem 10%; background: #fcfcfc; }
+.projects h2 { font-size: 2.5rem; margin-bottom: 3rem; text-align: center; }
+
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+.project-card { 
+  background: #ffffff; 
+  border-radius: 20px; 
+  border: 1px solid #eee; 
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s ease; 
+}
+.project-card:hover { 
+  transform: translateY(-10px); 
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+  border-color: var(--primary); 
+}
+
+.project-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.project-card:hover .project-image {
+  transform: scale(1.05);
+}
+
+.project-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.project-card h3 { 
+  font-size: 1.5rem; 
+  margin-bottom: 0.75rem; 
+  color: #111;
+}
+.project-description { 
+  color: #666; 
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+.tech-stack { 
+  font-size: 0.8rem; 
+  color: var(--primary); 
+  font-weight: 700; 
+  background: #f0f7ff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+.btn-github {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.2s;
+}
+.btn-github:hover {
+  color: var(--primary);
+}
