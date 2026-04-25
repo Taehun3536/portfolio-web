@@ -15,6 +15,12 @@ const PROJECT_METADATA = {
     description: "결함 예방(Defect Prevention) 관점에서 백엔드 로직을 설계하고 검증한 포트폴리오입니다. GCP Cloud Storage 기반의 미디어 에셋 처리 로직과 가변 만료 시간 보안 정책을 구현하였으며, AssertJ와 Mockito를 활용한 정밀한 화이트박스 테스팅을 수행했습니다.",
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800",
     tech: "Spring Boot 3.x • GCP • AssertJ"
+  },
+  "portfolio-web": {
+    title: "My GitHub Portfolio Web",
+    description: "본인의 개발 및 QA 역량을 시각화하여 보여주는 개인 포트폴리오 사이트입니다. Next.js 서버 컴포넌트와 GitHub API를 연동하여 실시간 프로젝트 데이터를 안전하게 불러오도록 설계되었으며, 모던하고 깔끔한 UI를 제공합니다.",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
+    tech: "Next.js 14 • GitHub API • Vanilla CSS"
   }
 };
 
