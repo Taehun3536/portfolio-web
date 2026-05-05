@@ -6,8 +6,8 @@
 
 # Test info
 
-- Name: portfolio.spec.js >> 포트폴리오 E2E 테스트 (POM Pattern) >> 메인 페이지 헤더 문구 검증
-- Location: tests\portfolio.spec.js:12:7
+- Name: portfolio.spec.js >> 포트폴리오 E2E 테스트 (POM Pattern) >> 접근성 검증 (Basic ARIA)
+- Location: tests\portfolio.spec.js:61:7
 
 # Error details
 

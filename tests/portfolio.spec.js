@@ -33,13 +33,39 @@ test.describe('포트폴리오 E2E 테스트 (POM Pattern)', () => {
     expect(count).toBeGreaterThanOrEqual(3);
 
     // 프로젝트 카드가 깃허브 링크인지 확인
-    const href = await portfolioPage.getFirstProjectHref();
-    expect(href).toContain('github.com');
+    const hrefs = await portfolioPage.getAllProjectHrefs();
+    for (const href of hrefs) {
+      expect(href).toContain('github.com');
+    }
   });
 
   test('히어로 섹션 버튼 클릭 시 프로젝트 섹션 이동 검증', async () => {
     await portfolioPage.clickHeroButton();
     // URL에 #projects 해시가 포함되는지 확인
     expect(portfolioPage.page.url()).toContain('#projects');
+  });
+
+  test('반응형 디자인 검증 (Mobile Viewport)', async ({ page }) => {
+    // iPhone 13 Pro 사이즈로 조정
+    await page.setViewportSize({ width: 390, height: 844 });
+    
+    // 네비게이션 바가 여전히 표시되는지 확인
+    const isNavbarVisible = await page.locator('.navbar').isVisible();
+    expect(isNavbarVisible).toBeTruthy();
+    
+    // 히어로 텍스트가 줄바꿈되어도 잘 보이는지 확인
+    const heroText = page.locator('.hero-main-text h3');
+    await expect(heroText).toBeVisible();
+  });
+
+  test('접근성 검증 (Basic ARIA)', async ({ page }) => {
+    // 모든 프로젝트 링크에 aria-label 또는 명확한 텍스트가 있는지 확인
+    const links = page.locator('.project-card-link');
+    const count = await links.count();
+    for (let i = 0; i < count; i++) {
+      const link = links.nth(i);
+      const title = await link.locator('h4').textContent();
+      expect(title.length).toBeGreaterThan(0);
+    }
   });
 });

@@ -6,8 +6,8 @@
 
 # Test info
 
-- Name: portfolio.spec.js >> 포트폴리오 E2E 테스트 (POM Pattern) >> 지정된 3개 프로젝트 카드 렌더링 검증
-- Location: tests\portfolio.spec.js:18:7
+- Name: exception.spec.js >> 예외 상황 및 엣지 케이스 테스트 >> GitHub API 호출 실패 시 (500 에러) 폴백 UI 검증
+- Location: tests\exception.spec.js:11:7
 
 # Error details
 

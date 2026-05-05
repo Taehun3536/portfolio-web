@@ -1,5 +1,6 @@
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const USERNAME = "Taehun3536";
+'use client';
+
+import { useState, useEffect } from 'react';
 
 const PROJECT_METADATA = {
   "QA-Study": {
@@ -22,54 +23,80 @@ const PROJECT_METADATA = {
     description: "Next.js 서버 컴포넌트와 GitHub API를 연동한 포트폴리오 사이트입니다. 깔끔한 UI와 실시간 데이터 연동에 집중했습니다.",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
     tech: "Next.js • CSS"
+  },
+  "web_chatbot": {
+    category: "Dev",
+    title: "AI Web Chatbot",
+    description: "LLM API를 연동하여 실시간 대화가 가능한 지능형 웹 챗봇입니다. 사용자 중심의 인터페이스와 빠른 응답성에 집중했습니다.",
+    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd05a?auto=format&fit=crop&q=80&w=800",
+    tech: "React • OpenAI API"
   }
 };
 
-const REPO_NAMES = Object.keys(PROJECT_METADATA);
+export default function Projects() {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-async function getSpecificProjects() {
-  const headers = {
-    'Accept': 'application/vnd.github.v3+json',
-    ...(GITHUB_TOKEN && { 'Authorization': `token ${GITHUB_TOKEN}` })
-  };
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        setLoading(true);
+        // 내부 API 프록시 호출
+        const res = await fetch('/api/projects');
+        const data = await res.json();
 
-  try {
-    const responses = await Promise.all(
-      REPO_NAMES.map(repoName => 
-        fetch(`https://api.github.com/repos/${USERNAME}/${repoName}`, { 
-          headers,
-          next: { revalidate: 3600 } 
-        }).then(res => {
-          if (!res.ok) throw new Error(`${repoName} 데이터를 가져오지 못했습니다.`);
-          return res.json();
-        })
-      )
+        if (!res.ok) {
+          throw new Error(data.error || '프로젝트 데이터를 가져오는 데 실패했습니다.');
+        }
+
+        const formattedProjects = data.map(repo => {
+          const meta = PROJECT_METADATA[repo.name] || {};
+          return {
+            id: repo.id,
+            category: meta.category || "Dev",
+            title: meta.title || repo.name,
+            description: meta.description || repo.description,
+            image: meta.image || "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+            tech: meta.tech || repo.language || "Engineering",
+            url: repo.html_url,
+            stars: repo.stargazers_count
+          };
+        });
+
+        setProjects(formattedProjects);
+        setError(null);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="projects" className="projects">
+        <div className="loading-container">
+          <p>프로젝트 데이터를 불러오는 중입니다...</p>
+        </div>
+      </section>
     );
-
-    return responses.map(repo => {
-      const meta = PROJECT_METADATA[repo.name];
-      return {
-        id: repo.id,
-        category: meta.category,
-        title: meta.title || repo.name,
-        description: meta.description || repo.description,
-        image: meta.image,
-        tech: meta.tech || repo.language || "Engineering",
-        url: repo.html_url,
-        stars: repo.stargazers_count
-      };
-    });
-  } catch (error) {
-    console.error("GitHub API 호출 에러:", error);
-    return [];
   }
-}
 
-export default async function Projects() {
-  const projects = await getSpecificProjects();
-
-  if (projects.length === 0) {
-    return <section className="projects"><p>프로젝트 데이터를 불러오는 중입니다...</p></section>;
+  if (error) {
+    return (
+      <section id="projects" className="projects">
+        <div className="error-container">
+          <p className="error-message">데이터를 불러오는 데 실패했습니다.</p>
+          <p className="error-detail">{error}</p>
+          <button onClick={() => window.location.reload()} className="btn-retry">다시 시도</button>
+        </div>
+      </section>
+    );
   }
 
   const qaProjects = projects.filter(p => p.category === "QA");
