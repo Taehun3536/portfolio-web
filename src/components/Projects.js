@@ -10,9 +10,9 @@ const PROJECT_METADATA = {
     category: "QA",
     title: "QA Test Automation Study",
     description: [
-      "Playwright 기반의 UI E2E 및 API 테스트 자동화 연구 프로젝트입니다.",
-      "- Playwright를 활용한 시나리오 기반 테스트 자동화 구현",
-      "- Page Object Model(POM) 패턴 적용으로 유지보수성 향상"
+      "<b>Playwright</b> 기반의 <b>UI E2E 및 API 테스트 자동화</b> 연구 프로젝트입니다.",
+      "- <b>Playwright</b>를 활용한 <b>시나리오 기반 테스트 자동화</b> 구현",
+      "- <b>Page Object Model(POM) 패턴</b> 적용으로 <b>유지보수성</b> 향상"
     ],
     image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80&w=800",
     tech: "Playwright • Java"
@@ -21,9 +21,9 @@ const PROJECT_METADATA = {
     category: "QA",
     title: "Backend QA Engineering",
     description: [
-      "GCP 인프라와 보안 정책이 적용된 백엔드 프로젝트입니다.",
-      "- Spring Boot 기반의 견고한 REST API 설계 및 구현",
-      "- JUnit5 및 통합 테스트를 통한 시스템 무결성 검증"
+      "<b>GCP 인프라</b>와 <b>보안 정책</b>이 적용된 <b>백엔드 프로젝트</b>입니다.",
+      "- <b>Spring Boot</b> 기반의 견고한 <b>REST API 설계</b> 및 구현",
+      "- <b>JUnit5 및 통합 테스트</b>를 통한 <b>시스템 무결성</b> 검증"
     ],
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800",
     tech: "Java • Spring Boot"
@@ -32,9 +32,9 @@ const PROJECT_METADATA = {
     category: "Dev",
     title: "GitHub Portfolio Web",
     description: [
-      "GitHub API를 연동하여 실시간 데이터를 시각화한 포트폴리오 사이트입니다.",
-      "- Next.js 14 App Router 기반의 정적 사이트 최적화",
-      "- Vanilla CSS를 활용한 반응형 UI 및 사용자 경험 개선"
+      "<b>GitHub API</b>를 연동하여 <b>실시간 데이터</b>를 시각화한 <b>포트폴리오 사이트</b>입니다.",
+      "- <b>Next.js 14 App Router</b> 기반의 <b>정적 사이트 최적화</b>",
+      "- <b>Vanilla CSS</b>를 활용한 <b>반응형 UI</b> 및 <b>사용자 경험</b> 개선"
     ],
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
     tech: "Next.js • CSS"
@@ -43,9 +43,9 @@ const PROJECT_METADATA = {
     category: "Dev",
     title: "AI Intelligent Web Chatbot",
     description: [
-      "Google Gemini API를 활용한 실시간 지능형 챗봇 서비스입니다.",
-      "- Gemini Pro 모델 연동 및 스트리밍 응답 시스템 구축",
-      "- 프롬프트 엔지니어링을 통한 응답 품질 및 일관성 최적화"
+      "<b>Google Gemini API</b>를 활용한 <b>실시간 지능형 챗봇</b> 서비스입니다.",
+      "- <b>Gemini Pro 모델</b> 연동 및 <b>스트리밍 응답 시스템</b> 구축",
+      "- <b>프롬프트 엔지니어링</b>을 통한 <b>응답 품질</b> 및 <b>일관성</b> 최적화"
     ],
     image: "https://images.unsplash.com/photo-1587560699334-cc4ff634909a?auto=format&fit=crop&q=80&w=800",
     tech: "React • Gemini API"
