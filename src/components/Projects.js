@@ -163,7 +163,7 @@ function ProjectCard({ project }) {
           <h4>{project.title}</h4>
           <div className="project-description">
             {project.description.map((line, index) => (
-              <p key={index}>{line}</p>
+              <p key={index} dangerouslySetInnerHTML={{ __html: line }} />
             ))}
           </div>
           <div className="project-footer">
