@@ -1,26 +1,27 @@
-// 서버 컴포넌트: 보안을 위해 서버에서 GitHub API를 호출합니다.
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const USERNAME = "Taehun3536";
 
-// 사용자 맞춤 메타데이터 (이미지 및 전문적인 상세 설명)
 const PROJECT_METADATA = {
   "QA-Study": {
+    category: "QA",
     title: "QA Test Automation Study",
-    description: "실무 QA 경험(1년 5개월)을 바탕으로 수동 테스트를 Playwright로 자동화한 프로젝트입니다. POM 패턴을 적용한 UI E2E 테스트와 API 통합 테스트를 구현하며, 반복적인 Smoke Test의 공수 절감을 목표로 학습한 결과물입니다.",
+    description: "Playwright 기반의 UI E2E 및 API 테스트 자동화 프로젝트입니다. POM 패턴을 적용하여 테스트 효율을 높였습니다.",
     image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80&w=800",
-    tech: "Java 17 • Playwright • JUnit5"
+    tech: "Playwright • Java"
   },
   "Backend-QA-Engineering-Portfolio": {
+    category: "QA",
     title: "Backend QA Engineering",
-    description: "결함 예방(Defect Prevention) 관점에서 백엔드 로직을 설계하고 검증한 포트폴리오입니다. GCP Cloud Storage 기반의 미디어 에셋 처리 로직과 가변 만료 시간 보안 정책을 구현하였으며, AssertJ와 Mockito를 활용한 정밀한 화이트박스 테스팅을 수행했습니다.",
+    description: "GCP 연동 및 보안 정책이 포함된 백엔드 시스템입니다. 정밀한 테스트를 통해 결함 없는 시스템을 구축했습니다.",
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800",
-    tech: "Spring Boot 3.x • GCP • AssertJ"
+    tech: "Java • Spring Boot"
   },
   "portfolio-web": {
+    category: "Dev",
     title: "My GitHub Portfolio Web",
-    description: "본인의 개발 및 QA 역량을 시각화하여 보여주는 개인 포트폴리오 사이트입니다. Next.js 서버 컴포넌트와 GitHub API를 연동하여 실시간 프로젝트 데이터를 안전하게 불러오도록 설계되었으며, 모던하고 깔끔한 UI를 제공합니다.",
+    description: "Next.js 서버 컴포넌트와 GitHub API를 연동한 포트폴리오 사이트입니다. 깔끔한 UI와 실시간 데이터 연동에 집중했습니다.",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
-    tech: "Next.js 14 • GitHub API • Vanilla CSS"
+    tech: "Next.js • CSS"
   }
 };
 
@@ -49,6 +50,7 @@ async function getSpecificProjects() {
       const meta = PROJECT_METADATA[repo.name];
       return {
         id: repo.id,
+        category: meta.category,
         title: meta.title || repo.name,
         description: meta.description || repo.description,
         image: meta.image,
@@ -70,31 +72,50 @@ export default async function Projects() {
     return <section className="projects"><p>프로젝트 데이터를 불러오는 중입니다...</p></section>;
   }
 
+  const qaProjects = projects.filter(p => p.category === "QA");
+  const devProjects = projects.filter(p => p.category === "Dev");
+
   return (
     <section id="projects" className="projects">
-      <h2>Featured Projects</h2>
-      <div className="project-grid">
-        {projects.map((project) => (
-          <div key={project.id} className="project-card">
-            <div className="project-image-container">
-              <img src={project.image} alt={project.title} className="project-image" />
-            </div>
-            <div className="project-content">
-              <h3>{project.title}</h3>
-              <p className="project-description">{project.description}</p>
-              <div className="project-footer">
-                <span className="tech-stack">{project.tech}</span>
-                <div className="project-meta">
-                  {project.stars > 0 && <span className="stars">⭐ {project.stars}</span>}
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn-github">
-                    GitHub →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+      <h2 className="section-title">Projects</h2>
+      
+      <div className="category-group">
+        <h3 className="category-title">QA</h3>
+        <div className="project-grid">
+          {qaProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      </div>
+
+      <div className="category-group">
+        <h3 className="category-title">Dev</h3>
+        <div className="project-grid">
+          {devProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
       </div>
     </section>
+  );
+}
+
+function ProjectCard({ project }) {
+  return (
+    <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-card-link">
+      <div className="project-card">
+        <div className="project-image-container">
+          <img src={project.image} alt={project.title} className="project-image" />
+        </div>
+        <div className="project-content">
+          <h4>{project.title}</h4>
+          <p className="project-description">{project.description}</p>
+          <div className="project-footer">
+            <span className="tech-stack">{project.tech}</span>
+            {project.stars > 0 && <span className="stars">⭐ {project.stars}</span>}
+          </div>
+        </div>
+      </div>
+    </a>
   );
 }
