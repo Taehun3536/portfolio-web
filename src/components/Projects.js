@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 
+const USERNAME = "Taehun3536";
+const REPO_NAMES = ["QA-Study", "Backend-QA-Engineering-Portfolio", "portfolio-web", "web_chatbot"];
+
 const PROJECT_METADATA = {
   "QA-Study": {
     category: "QA",
@@ -42,15 +45,22 @@ export default function Projects() {
     async function fetchProjects() {
       try {
         setLoading(true);
-        // 내부 API 프록시 호출
-        const res = await fetch('/api/projects');
-        const data = await res.json();
+        
+        // Static Export 환경에서는 서버 API Route를 사용할 수 없으므로 브라우저에서 직접 GitHub API 호출
+        const responses = await Promise.all(
+          REPO_NAMES.map(repoName => 
+            fetch(`https://api.github.com/repos/${USERNAME}/${repoName}`, {
+              headers: {
+                'Accept': 'application/vnd.github.v3+json'
+              }
+            }).then(res => {
+              if (!res.ok) throw new Error(`${repoName} 데이터를 가져오지 못했습니다. (${res.status})`);
+              return res.json();
+            })
+          )
+        );
 
-        if (!res.ok) {
-          throw new Error(data.error || '프로젝트 데이터를 가져오는 데 실패했습니다.');
-        }
-
-        const formattedProjects = data.map(repo => {
+        const formattedProjects = responses.map(repo => {
           const meta = PROJECT_METADATA[repo.name] || {};
           return {
             id: repo.id,
