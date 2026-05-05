@@ -9,11 +9,11 @@ test.describe('예외 상황 및 엣지 케이스 테스트 고도화', () => {
   });
 
   test('GitHub API 호출 실패 시 (500 에러) 에러 UI 검증', async ({ page }) => {
-    await page.route('**/api/projects', async route => {
+    await page.route('https://api.github.com/repos/**', async route => {
       await route.fulfill({
         status: 500,
         contentType: 'application/json',
-        body: JSON.stringify({ error: 'Internal Server Error (500)' }),
+        body: JSON.stringify({ message: 'Internal Server Error (500)' }),
       });
     });
 
@@ -26,11 +26,11 @@ test.describe('예외 상황 및 엣지 케이스 테스트 고도화', () => {
   });
 
   test('GitHub API Rate Limit 초과 시 (403 에러) 대응 검증', async ({ page }) => {
-    await page.route('**/api/projects', async route => {
+    await page.route('https://api.github.com/repos/**', async route => {
       await route.fulfill({
         status: 403,
         contentType: 'application/json',
-        body: JSON.stringify({ error: 'API rate limit exceeded (403)' }),
+        body: JSON.stringify({ message: 'API rate limit exceeded (403)' }),
       });
     });
 
@@ -40,7 +40,7 @@ test.describe('예외 상황 및 엣지 케이스 테스트 고도화', () => {
   });
 
   test('네트워크 지연 상황 (Slow Network) 로딩 상태 검증', async ({ page }) => {
-    await page.route('**/api/projects', async route => {
+    await page.route('https://api.github.com/repos/**', async route => {
       await new Promise(resolve => setTimeout(resolve, 2000));
       await route.continue();
     });
@@ -56,9 +56,9 @@ test.describe('예외 상황 및 엣지 케이스 테스트 고도화', () => {
 
   test('다시 시도 버튼 동작 검증', async ({ page }) => {
     let callCount = 0;
-    await page.route('**/api/projects', async route => {
+    await page.route('https://api.github.com/repos/**', async route => {
       callCount++;
-      if (callCount === 1) { 
+      if (callCount <= 4) { // 모든 초기 요청 실패 시뮬레이션
         await route.fulfill({ status: 500, body: JSON.stringify({ error: 'Fail' }) });
       } else {
         await route.continue();

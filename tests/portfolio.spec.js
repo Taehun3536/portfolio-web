@@ -5,6 +5,24 @@ test.describe('포트폴리오 E2E 테스트 (POM Pattern)', () => {
   let portfolioPage;
 
   test.beforeEach(async ({ page }) => {
+    // GitHub API 모킹
+    await page.route('https://api.github.com/repos/**', async route => {
+      const url = route.request().url();
+      const repoName = url.split('/').pop();
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          id: 12345,
+          name: repoName,
+          html_url: `https://github.com/Taehun3536/${repoName}`,
+          description: 'Mocked Description',
+          stargazers_count: 10,
+          language: 'JavaScript'
+        }),
+      });
+    });
+
     portfolioPage = new PortfolioPage(page);
     await portfolioPage.goto();
   });
