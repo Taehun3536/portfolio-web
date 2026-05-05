@@ -9,16 +9,31 @@ test.describe('포트폴리오 E2E 테스트 (POM Pattern)', () => {
     await portfolioPage.goto();
   });
 
-  test('메인 페이지 헤더 문구 검증', async () => {
-    const text = await portfolioPage.getHeroTitleText();
+  test('네비게이션 바 로고 문구 검증', async () => {
+    const logoText = await portfolioPage.getNavbarLogoText();
+    expect(logoText).toBe('Engineer Portfolio');
+  });
+
+  test('메인 페이지 태그라인 문구 검증', async () => {
+    const text = await portfolioPage.getHeroTaglineText();
     expect(text).toContain('권태훈');
     expect(text).toContain('구현을 넘어 검증까지');
   });
 
-  test('지정된 3개 프로젝트 카드 렌더링 검증', async () => {
+  test('프로젝트 카테고리 및 카드 렌더링 검증', async () => {
     await portfolioPage.expectProjectVisible();
+    
+    // 카테고리 확인
+    const categories = await portfolioPage.getCategoryTitles();
+    expect(categories).toContain('QA');
+    expect(categories).toContain('Dev');
+
+    // 프로젝트 개수 확인
     const count = await portfolioPage.getProjectCount();
-    // 우리가 지정한 3개의 프로젝트가 모두 나오는지 확인
     expect(count).toBeGreaterThanOrEqual(3);
+
+    // 프로젝트 카드가 깃허브 링크인지 확인
+    const href = await portfolioPage.getFirstProjectHref();
+    expect(href).toContain('github.com');
   });
 });
