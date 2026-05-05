@@ -3,8 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "My Dev Portfolio",
-  description: "Next.js로 구현한 개발자 포트폴리오 레이아웃",
+  title: "Engineer Portfolio",
+  description: "품질과 성장을 지향하는 엔지니어 권태훈의 포트폴리오입니다.",
 };
 
 export default function RootLayout({ children }) {
