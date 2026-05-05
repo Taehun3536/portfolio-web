@@ -68,6 +68,6 @@ export class PortfolioPage {
   }
 
   async getAllProjectHrefs() {
-    return await this.projectLinks.allAttribute('href');
+    return await this.projectLinks.evaluateAll(links => links.map(link => link.getAttribute('href')));
   }
 }

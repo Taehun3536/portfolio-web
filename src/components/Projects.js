@@ -27,9 +27,9 @@ const PROJECT_METADATA = {
   "web_chatbot": {
     category: "Dev",
     title: "AI Web Chatbot",
-    description: "LLM API를 연동하여 실시간 대화가 가능한 지능형 웹 챗봇입니다. 사용자 중심의 인터페이스와 빠른 응답성에 집중했습니다.",
-    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd05a?auto=format&fit=crop&q=80&w=800",
-    tech: "React • OpenAI API"
+    description: "Google Gemini API를 연동하여 실시간 대화가 가능한 챗봇 서비스입니다. 프롬프트 엔지니어링을 통해 지능적인 응답 시스템을 구축했습니다.",
+    image: "https://images.unsplash.com/photo-1587560699334-cc4ff634909a?auto=format&fit=crop&q=80&w=800",
+    tech: "React • Gemini API"
   }
 };
 
