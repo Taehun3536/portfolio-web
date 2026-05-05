@@ -7,6 +7,15 @@ export class PortfolioPage {
     this.categoryTitles = page.locator('.category-title');
     this.projectCards = page.locator('.project-card');
     this.projectLinks = page.locator('.project-card-link');
+    this.heroButton = page.locator('.hero-btns .btn-primary');
+  }
+
+  async clickHeroButton() {
+    await this.heroButton.click();
+  }
+
+  async isProjectsSectionInViewport() {
+    return await this.projectsSection.isVisible();
   }
 
   async goto() {

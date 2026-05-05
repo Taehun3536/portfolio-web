@@ -36,4 +36,10 @@ test.describe('포트폴리오 E2E 테스트 (POM Pattern)', () => {
     const href = await portfolioPage.getFirstProjectHref();
     expect(href).toContain('github.com');
   });
+
+  test('히어로 섹션 버튼 클릭 시 프로젝트 섹션 이동 검증', async () => {
+    await portfolioPage.clickHeroButton();
+    // URL에 #projects 해시가 포함되는지 확인
+    expect(portfolioPage.page.url()).toContain('#projects');
+  });
 });
